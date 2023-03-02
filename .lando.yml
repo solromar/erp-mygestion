@@ -1,0 +1,10 @@
+name: erp-mygestion
+recipe: lamp
+config:
+  webroot: ./public
+services:
+  appserver:
+    scanner: false
+    type: php:7.4
+  database:
+    scanner: false

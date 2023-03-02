@@ -1,0 +1,203 @@
+# global
+
+# security
+security_user_not_found: El usuario no ha sido encontrado.
+
+# layouts
+# layouts - public
+layout_public_toolbar_btn_login: Iniciar sesión
+layout_public_toolbar_btn_register: Registrarse
+layout_public_toolbar_btn_signup: Darte de Alta
+order_not_found: Orden no encontrada
+
+layout_public_menu_item_how_work: Cómo Funciona
+layout_public_menu_item_home: Inicio
+layout_public_menu_item_our_escrow_account: Nuestra Cuenta Escrow
+layout_public_menu_item_our_connectors: Nuestros Conectores
+layout_public_menu_item_our_investors: Nuestros Inversores
+layout_public_menu_item_markets: Mercados
+layout_public_menu_item_our_scoring: Nuestro Scoring
+layout_public_menu_item_our_product: Nuestro Producto
+layout_public_menu_item_our_guarantees: Nuestras Garantías
+layout_public_menu_item_our_contract: Nuestro Contrato
+layout_public_menu_item_investor_user: Inversor
+layout_public_menu_item_provider_user: Proveedor
+layout_public_menu_item_distributor_user: Distribuidor
+layout_public_menu_item_credit_institution: Entidad de Crédito
+layout_public_menu_item_team: Equipo
+layout_public_menu_item_financial_entity_user: Entidad Financiera
+layout_public_menu_item_logout: Cerrar sesión
+
+layout_public_menu_item_faq: FAQ
+layout_public_menu_item_profile: Perfil
+layout_public_menu_item_contact: Contacto
+layout_public_menu_item_blog: Blog
+layout_public_menu_item_terms: Términos de Uso
+layout_public_menu_item_smart_escrow_pro: Conectores-SmartEscrow PRO
+layout_public_menu_item_they_trust_us: Confían en Nosotros
+
+layout_public_menu_item_user: Usuarios
+layout_public_menu_item_help: Ayuda
+
+layout_public_language_es: Español
+layout_public_language_en: Inglés
+layout_public_language_fr: Francés
+
+# pages
+# pages - public
+# pages - public - index
+public_index_message_success: ¡Gracias por ponerte en contacto con nosotros! Pronto te contactaremos
+
+public_index_seo_title: Inicio
+
+# contact
+public_contact_message_success: ¡Gracias por comunicarte! Pronte te estaremos contactando
+
+# profile/perfil
+document_title: Documentos
+document_data: Subir Documento
+comments_add: Agregar Comentario
+business_data: Datos de la Empresa
+personal_data: Datos Personales
+account_data: Datos Cuenta
+signing_contract: Firma de Contrato
+
+# _index
+profile_index_seo_title: Perfil
+
+# auth
+# _register
+auth_register_seo_title: Registro
+auth_register_title: Regístrate con usuario y contraseña
+auth_register_form_name: Nombre
+auth_register_form_surname: Apellidos
+auth_register_form_photo: Foto de perfil
+auth_register_form_birth: Fecha de nacimiento
+auth_register_form_email: Correo electrónico
+auth_register_form_password: Contraseña
+auth_register_form_confirm_password: Repetir Contraseña
+auth_register_form_company: Nombre / Empresa
+auth_register_form_iden: DNI / NIE / PASAPORTE / OTRO
+auth_register_form_types:
+  - DNI
+  - NIE
+  - PASAPORTE
+  - OTRO
+auth_register_form_country: País
+auth_register_form_isbusiness: Represento a una empresa
+auth_register_form_agree_terms: Acepto las condiciones de uso Conectores-SmartEscrow
+auth_register_form_roles: Tipo de cuenta
+auth_register_form_roles_investor: Inversor
+auth_register_form_roles_company: Empresa
+auth_register_btn_submit: Enviar
+auth_register_btn_complete_business: Completar perfil empresa
+auth_register_btn_upload: Subir
+auth_register_text: ¿Tienes cuenta?
+auth_register_btn_login: Acceder
+
+# _register business
+auth_register_form_tpye: Tipo de Empresa
+auth_register_form_relation: Relación con la Empresa
+auth_register_form_comment: Comentarios acerca del documento
+auth_register_form_docname: Nombre del Documento
+auth_register_form_business_type:
+  - SL
+  - SLL
+  - SA
+  - CB
+  - PFP
+  - Asociación
+  - Fundación
+  - Otra
+auth_register_form_business_relation:
+  - Administrador Único
+  - Administrador Mancomunado
+  - Administrador Solidario
+  - Apoderado
+  - Socio
+  - Trabajador
+  - Otro
+
+auth_register_success: Usuario registrado. Te hemos enviado un correo para confirmar tu cuenta.
+
+# _update
+auth_update_success: Usuario actualizado con exito.
+
+# _confirmation email
+auth_confirmation_email_seo_title: Confirmación de email exitosa
+auth_confirmation_email_subject: Hola! Por favor confirme su email!
+auth_confirmation_email_body: Hola, gracias por crear una cuenta en Conectores-SmartEscrow.
+auth_confirmation_email_footer: Accede al enlace que se incluye en este mensaje para confirmar tu dirección de correo electrónico.
+auth_confirmation_email_link: Confirmar mi email
+
+# _congratulations
+auth_congratulations_title: Felicidades
+auth_congratulations_subtitle: Tu email ha sido verificado
+auth_congratulations_btn_back: Ir al inicio
+
+# _login
+auth_login_seo_title: Login
+auth_login_title: Login
+auth_login_form_email: Email
+auth_login_form_password: Contraseña
+auth_login_btn_forgot_password: ¿Olvidaste la contreseña?
+auth_login_btn_submit: Enviar
+auth_login_text: ¿Todovía no estás registrado?
+auth_login_btn_register: Registrarse
+
+# _reset password request
+auth_reset_password_request_seo_title: Reiniciar contraseña
+auth_reset_password_request_title: Reiniciar contraseña
+auth_reset_password_request_btn_submit: Enviar email
+
+# _email
+auth_email_subtitle: Your password reset request
+
+auth_email_text: Hi!
+auth_email_text2: To reset your password, please visit
+auth_email_text3: here
+auth_email_text4: This link will expire in
+auth_email_text5: hour(s)..
+auth_email_text6: Cheers!
+
+# _reset_password_check_email
+auth_reset_password_check_email_seo_title: Email de reinicio de contraseña enviado
+auth_reset_password_check_email_title: Email de reinicio de contraseña enviado
+auth_reset_password_check_email_text: Un email ha sido enviado con un link que puedes clickear para reiniciar tu contraseña. Este link expirara en **text** hora(s).
+auth_reset_password_check_email_text2: Si no recibiste un email por favor comprueba en la casilla de spam o
+auth_reset_password_check_btn_try_again: intenta denuevo
+
+# _reset_password_reset
+auth_reset_password_reset_seo_title: Restablecer tu contraseña
+auth_reset_password_reset_title: Restablecer tu contraseña
+auth_reset_password_reset_btn_submit: Restablecer
+auth_reset_password_reset_form_password: Contraseña
+auth_reset_password_reset_form_confirm_password: Repetir contraseña
+
+# _reset_password_reset_token
+auth_reset_password_reset_token_null: No se encontró ningún token de restablecimiento de contraseña en la URL o en la sesión.
+auth_reset_password_reset_token_not_found: Hubo un problema al validar su solicitud de restablecimiento
+
+# components
+# road
+road_title: Entregamos el dinero por hitos de fabricación
+road_list:
+  - title: Entrada de primera parte del dinero
+    subtitle: Paga a sus proveedores
+  - title: Entrada de la segunda parte del dinero
+  -
+  - title: Se realiza la venta
+    extra_info: El cliente paga al proveedor
+    subtitle: Devuelve el dinero de la operación
+
+road_2_title: Por control de las comunicaciones, por medio de EDI
+road_2_list:
+  - title: Orden del pedido
+    subtitle: Pasa de orden de pedido a orden de compra
+  - title: Producto entregado al cliente
+    subtitle: Pasa de orden de pedido a orden de compra
+  - title: Se realiza la venta y se formaliza el pago
+    subtitle: Pago a la cuenta Escrow
+
+email_not_sent: "El email no se pudo entregar"
+email_subject: 'Nuevo mensaje de "%name%"'

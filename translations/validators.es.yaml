@@ -1,0 +1,4 @@
+not_equals_passwords: Las contraseñas deben ser iguales
+limit_password: Tu contraseña deberia ser menor a {{ limit }} caracteres
+required_field: Este campo es requerido
+
