@@ -65,7 +65,7 @@ abstract class AbstractApi
     }
 
     public function setErpNameAutomatically() {
-     TODO:   $this->setErpName(strtoupper('billage')); //aca va el nombre del ERP
+      $this->setErpName(strtoupper('mygestion')); 
     }
 
     public function finalSetUps() {

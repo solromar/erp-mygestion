@@ -29,7 +29,7 @@ class InvoiceEmittedController extends AbstractAppController
         $data = (object) $request->attributes->all();
 
         $xml = <<<xml
-        <?xml version="1.0" encoding="UTF-8"?>
+        
 <facturas_cliente>
     <factura>
         <id>34</id>
@@ -123,15 +123,9 @@ xml;
 
         $json = json_decode($json);
 
-        $response = <<<json
-        {
-            
-        }
-        json;
+        
 
-        $response = json_decode($response);
-
-        foreach ($response as $key => $value) {
+        foreach ($json as $key => $value) {
             $apiInvoiceEmitted = new ApiInvoiceEmitted($value);
 
             // Invoice basic info...
@@ -144,39 +138,42 @@ xml;
             // Invoice expiration date...
             $apiInvoiceEmitted->setExpirationDate($value->fecha_vto);
 
-            dd($apiInvoiceEmitted);
+            
 
             // Invoice Target NIF...
-            $apiInvoiceEmitted->setBuyerSocialDenomination('');
-            $apiInvoiceEmitted->setBuyerNifOrAlternativeNif('');
+            $apiInvoiceEmitted->setBuyerSocialDenomination($value->nombre_cliente);
+            // NO TRAE LA API $apiInvoiceEmitted->setBuyerNifOrAlternativeNif('');
 
             // Invoice Issuer NIF/CIF...
-            $apiInvoiceEmitted->setHolderBookSocialName('');
-            $apiInvoiceEmitted->setHolderCifOrAlternativeCif('');
+             // NO TRAE LA API $apiInvoiceEmitted->setHolderBookSocialName('');
+            // NO TRAE LA API $apiInvoiceEmitted->setHolderCifOrAlternativeCif('');
 
-            // Invoice Supplier NIF/CIF...
-            $apiInvoiceEmitted->setSupplierSocialDenomination('');
-            $apiInvoiceEmitted->setSupplierCifOrAlternativeCif('');
+            // Invoice Supplier NIF/CIF... NO CORRESPONDE POR SER INVOICE EMITTED
+            //$apiInvoiceEmitted->setSupplierSocialDenomination('');
+            //$apiInvoiceEmitted->setSupplierCifOrAlternativeCif('');
 
 
 
             // Invoice Dates...
-            $apiInvoiceEmitted->setInvoiceDate('');
-            $apiInvoiceEmitted->setDatePaymentTerm('');
+            $apiInvoiceEmitted->setInvoiceDate($value->fecha_factura);
+            // TODO:$apiInvoiceEmitted->setDatePaymentTerm($value->fecha_pago);
+            //la respuesta esta vacia y trae error
 
             // Invoice Amounts...
             $apiInvoiceEmitted->setMonetaryAmountTerm('');
-            $apiInvoiceEmitted->setTotalAmountInvoice('');
-            $apiInvoiceEmitted->setTotalAmountTaxInvoic('');
+            $apiInvoiceEmitted->setTotalAmountInvoice($value->total_factura);
+            $apiInvoiceEmitted->setTotalAmountTaxInvoic($value->iva);
 
             // Invoice extras...
-            $apiInvoiceEmitted->setDescriptionObject('');
-            $apiInvoiceEmitted->setTaxableBaseTotal('');
-            $apiInvoiceEmitted->setExchangeRateInvoiceCux('');
-            $apiInvoiceEmitted->setTotalGlobalDiscounts('');
+            $apiInvoiceEmitted->setDescriptionObject($value->concepto);
+            $apiInvoiceEmitted->setTaxableBaseTotal($value->base_imponible);
+            $apiInvoiceEmitted->setExchangeRateInvoiceCux($value->tasa_conversion);
+            $apiInvoiceEmitted->setTotalGlobalDiscounts($value->porcen_dto_pp);
 
-            // Invoice Products...
-            foreach ($response->ejemplo as $key => $product) {
+            dd($apiInvoiceEmitted);
+
+            // Invoice Products... TODO: LO TRAE EN OTRA API
+            foreach ($json->ejemplo as $key => $product) {
                 $apiProduct = new ApiProducts('');
 
                 // Product basic info...
