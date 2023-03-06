@@ -27,20 +27,23 @@ class InvoiceRecievedController extends AbstractAppController
     {
         $data = (object) $request->attributes->all('');
 
-        $response = <<<json
-        {
-            "ejemplo": [],
-            "ejemplo1": 60,
-            "ejemplo2": 1,
-            "ejemplo3": 1,
-            "ejemplo4": 1,
-            "ejemplo5": 1
-        }
-        json;
-        
-        $response = json_decode($response);
+        $xml = <<<xml
+        <facturas_proveedor>
+    <detalle>
+        <id>31</id>
+    </detalle>
+</facturas_proveedor>   
+xml;
 
-        foreach ($response as $key => $value) {
+        //Cargar el archivo XML
+        $xml = simplexml_load_string($xml);
+
+        //Transformar el archivo XML en formato JSON
+        $json = json_encode($xml);
+
+        $json = json_decode($json);
+
+        foreach ($json as $key => $value) {
             $apiInvoiceRecieved = new ApiInvoiceRecieved($value);
 
             // Invoice basic info...
@@ -66,7 +69,7 @@ class InvoiceRecievedController extends AbstractAppController
             $apiInvoiceRecieved->setSupplierCifOrAlternativeCif('');
 
 
-            
+
             // Invoice Dates...
             $apiInvoiceRecieved->setInvoiceDate('');
             $apiInvoiceRecieved->setDatePaymentTerm('');
@@ -82,31 +85,78 @@ class InvoiceRecievedController extends AbstractAppController
             $apiInvoiceRecieved->setExchangeRateInvoiceCux('');
             $apiInvoiceRecieved->setTotalGlobalDiscounts('');
 
+
+
             // Invoice Products...
-            foreach ($response->ejemplo as $key => $product) {
+            /* LO TRAE EN OTRA API, ver si se puede traer por id factura asi
+            traeria TODOS los productos y no uno solo (id20/id21)
+            api : https://app05.mygestion.com/appMg/api/ApiDetallesFacturasProveedor/31?user=solromar23@hotmail.com&password=gestion2023
+            */
+
+            $xmlProducts = <<<xml
+            
+<detalles_facturas_proveedor>
+    <detalle>
+        <id>31</id>
+        <factura_id>20</factura_id>
+        <detalle>1</detalle>
+        <articulo>HDD-DR21</articulo>
+        <descripcion>DISCO DURO EXTERNO 650 GB</descripcion>
+        <cantidad>30.000000</cantidad>
+        <coste_divisa>100.000000</coste_divisa>
+        <base_imponible>3000.000000</base_imponible>
+        <tipo_iva>21.00</tipo_iva>
+        <iva>630.000000</iva>
+        <total_detalle>3630.000000</total_detalle>
+        <porcen_dto>0.00</porcen_dto>
+        <dto_lineal>0.000000</dto_lineal>
+        <centro_coste />
+        <proyecto />
+        <albaran_id>22</albaran_id>
+        <hinsert>2023-02-24 12:50:07</hinsert>
+        <hupdate>2023-02-24 12:50:07</hupdate>
+        <uinsert>_og</uinsert>
+        <uupdate />
+        <product_attribute_id />
+        <desc_combinacion />
+        <caducidad />
+    </detalle>
+</detalles_facturas_proveedor>
+xml;
+            //Cargar el archivo XML
+            $xmlProducts = simplexml_load_string($xmlProducts);
+
+            //Transformar el archivo XML en formato JSON
+            $jsonProducts = json_encode($xmlProducts);
+
+            $jsonProducts = json_decode($jsonProducts);
+
+
+            foreach ($jsonProducts as $key => $product) {
                 $apiProduct = new ApiProducts('');
-                
+
                 // Product basic info...
-                $apiProduct->setId('');
-                $apiProduct->setProductName('');
-                $apiProduct->setProductUnitsType('');
-                $apiProduct->setProductDescription('');
+                $apiProduct->setId($product->id);
+                $apiProduct->setProductName($product->articulo);
+                $apiProduct->setProductUnitsType($product->cantidad);
+                $apiProduct->setProductDescription($product->descripcion);
 
                 // Product amount...
-                $apiProduct->setAmountWithTaxesLine('');
+                $apiProduct->setAmountWithTaxesLine($product->total_detalle);
 
                 // Product totals...
                 $apiProduct->setTotalWeightItem('');
-                $apiProduct->setTotalPriceCostItem('');
-                $apiProduct->setTotalDiscountsItem('');
-                $apiProduct->setTotalAmountTaxesArticle('');
+                $apiProduct->setTotalPriceCostItem($product->base_imponible);
+                $apiProduct->setTotalDiscountsItem($product->dto_lineal);
+                $apiProduct->setTotalAmountTaxesArticle($product->iva);
                 $apiProduct->setTotalAmountRetainedItem('');
 
                 // Product references...
                 $apiProduct->setReferenceProductAdditional('');
                 $apiProduct->setReferenceProductSupplier('');
-                    
-                $apiInvoiceRecieved->addProducts($apiProduct); 
+                dd($apiProduct);
+
+                $apiInvoiceRecieved->addProducts($apiProduct);
             }
 
             // Custom datas
@@ -114,13 +164,13 @@ class InvoiceRecievedController extends AbstractAppController
             $customData->setId('');
             $customData->setDescription('');
             $customData->setDataString('');
-            
+
             $apiInvoiceRecieved->addCustomData($customData);
 
             // END...
             dd($apiInvoiceRecieved);
-            
-            $this->api->post($apiInvoiceRecieved, 'invoice_emitteds', '');
+
+            $this->api->post($apiInvoiceRecieved, 'invoice_recieveds', '');
         }
 
         return new JsonResponse($data->controllerName . ": " . $this->api->getSummary());

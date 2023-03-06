@@ -28,6 +28,9 @@ class InvoiceEmittedController extends AbstractAppController
     {
         $data = (object) $request->attributes->all();
 
+       TODO: /* api : https://app05.mygestion.com/appMg/api/ApiFacturasCliente/34?user=solromar23@hotmail.com&password=gestion2023
+        */
+
         $xml = <<<xml
         
 <facturas_cliente>
@@ -171,8 +174,11 @@ xml;
             $apiInvoiceEmitted->setTotalGlobalDiscounts($value->porcen_dto_pp);
 
 
-
-            // Invoice Products... TODO: LO TRAE EN OTRA API
+            // Invoice Products...  
+            /* TODO: LO TRAE EN OTRA API, ver si se puede traer por id factura asi
+            traeria TODOS los productos y no uno solo (id37/id38)
+            api : https://app05.mygestion.com/appMg/api/ApiDetallesFacturasCliente/37?user=solromar23@hotmail.com&password=gestion2023
+            */
 
             $xmlProducts = <<<xml
             

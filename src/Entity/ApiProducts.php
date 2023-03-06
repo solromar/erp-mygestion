@@ -40,9 +40,9 @@ class ApiProducts
     protected $totalDiscountsItem;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ApiInvoiceEmitted::class, inversedBy="apiProducts")
+     * @ORM\ManyToOne(targetEntity=ApiInvoiceRecieved::class, inversedBy="apiProducts")
      */
-    protected $apiInvoiceEmitted;
+    protected $apiInvoiceRecieved;
 
     /**
      * @ORM\ManyToOne(targetEntity=ApiInvoiceRecieved::class, inversedBy="apiProducts")
@@ -193,14 +193,14 @@ class ApiProducts
         return $this;
     }
 
-    public function getApiInvoiceEmitted(): ?ApiInvoiceEmitted
+    public function getApiInvoiceRecieved(): ?ApiInvoiceRecieved
     {
-        return $this->apiInvoiceEmitted;
+        return $this->apiInvoiceRecieved;
     }
 
-    public function setApiInvoiceEmitted(?ApiInvoiceEmitted $apiInvoiceEmitted): self
+    public function setApiInvoiceRecieved(?ApiInvoiceRecieved $apiInvoiceRecieved): self
     {
-        $this->apiInvoiceEmitted = $apiInvoiceEmitted;
+        $this->apiInvoiceRecieved = $apiInvoiceRecieved;
 
         return $this;
     }
