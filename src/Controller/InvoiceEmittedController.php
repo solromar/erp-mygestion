@@ -123,29 +123,29 @@ xml;
 
         $json = json_decode($json);
 
-        
+
 
         foreach ($json as $key => $value) {
             $apiInvoiceEmitted = new ApiInvoiceEmitted($value);
 
             // Invoice basic info...
-            $apiInvoiceEmitted->setId($value->id);            
+            $apiInvoiceEmitted->setId($value->id);
             $apiInvoiceEmitted->setInvoiceNumber($value->factura);
             $apiInvoiceEmitted->setReferenceCurrency($value->divisa);
 
-            
+
 
             // Invoice expiration date...
             $apiInvoiceEmitted->setExpirationDate($value->fecha_vto);
 
-            
+
 
             // Invoice Target NIF...
             $apiInvoiceEmitted->setBuyerSocialDenomination($value->nombre_cliente);
             // NO TRAE LA API $apiInvoiceEmitted->setBuyerNifOrAlternativeNif('');
 
             // Invoice Issuer NIF/CIF...
-             // NO TRAE LA API $apiInvoiceEmitted->setHolderBookSocialName('');
+            // NO TRAE LA API $apiInvoiceEmitted->setHolderBookSocialName('');
             // NO TRAE LA API $apiInvoiceEmitted->setHolderCifOrAlternativeCif('');
 
             // Invoice Supplier NIF/CIF... NO CORRESPONDE POR SER INVOICE EMITTED
@@ -170,34 +170,76 @@ xml;
             $apiInvoiceEmitted->setExchangeRateInvoiceCux($value->tasa_conversion);
             $apiInvoiceEmitted->setTotalGlobalDiscounts($value->porcen_dto_pp);
 
-            dd($apiInvoiceEmitted);
+
 
             // Invoice Products... TODO: LO TRAE EN OTRA API
-            foreach ($json->ejemplo as $key => $product) {
+
+            $xmlProducts = <<<xml
+            
+<detalles_facturas_cliente>
+    <detalle>
+        <id>37</id>
+        <factura_id>34</factura_id>
+        <detalle>1</detalle>
+        <articulo>CAM-RS22</articulo>
+        <descripcion>CAMARA DIGITAL 9MPX</descripcion>
+        <cantidad>1.000000</cantidad>
+        <precio_venta>65.000000</precio_venta>
+        <base_imponible />
+        <tipo_iva>21.00</tipo_iva>
+        <iva />
+        <porcen_dto>0.00</porcen_dto>
+        <dto_lineal>0.000000</dto_lineal>
+        <total_detalle />
+        <agente>nul</agente>
+        <porcen_comision>0.00</porcen_comision>
+        <centro_coste />
+        <proyecto />
+        <albaran_id>24</albaran_id>
+        <hinsert>2023-02-24 12:50:07</hinsert>
+        <hupdate>2023-02-24 12:50:07</hupdate>
+        <uinsert>_og</uinsert>
+        <uupdate />
+        <product_attribute_id />
+        <desc_combinacion />
+        <caducidad />
+    </detalle>
+</detalles_facturas_cliente>
+xml;
+            //Cargar el archivo XML
+            $xmlProducts = simplexml_load_string($xmlProducts);
+
+            //Transformar el archivo XML en formato JSON
+            $jsonProducts = json_encode($xmlProducts);
+
+            $jsonProducts = json_decode($jsonProducts);
+
+            foreach ($jsonProducts as $key => $products) {
                 $apiProduct = new ApiProducts('');
 
                 // Product basic info...
-                $apiProduct->setId('');
-                $apiProduct->setProductName('');
-                $apiProduct->setProductUnitsType('');
-                $apiProduct->setProductDescription('');
+                $apiProduct->setId($products->id);
+                $apiProduct->setProductName($products->articulo);
+                $apiProduct->setProductUnitsType($products->cantidad);
+                $apiProduct->setProductDescription($products->descripcion);
 
                 // Product amount...
-                $apiProduct->setAmountWithTaxesLine('');
+                $apiProduct->setAmountWithTaxesLine($products->precio_venta);
 
                 // Product totals...
-                $apiProduct->setTotalWeightItem('');
-                $apiProduct->setTotalPriceCostItem('');
-                $apiProduct->setTotalDiscountsItem('');
-                $apiProduct->setTotalAmountTaxesArticle('');
-                $apiProduct->setTotalAmountRetainedItem('');
+                //no lo trae la API $apiProduct->setTotalWeightItem(''); 
+                //no lo trae la API $apiProduct->setTotalPriceCostItem('');
+                $apiProduct->setTotalDiscountsItem($products->dto_lineal);
+                // TODO: no trae nada la API y me tira error $apiProduct->setTotalAmountTaxesArticle($product->iva);
+                //no lo trae la API $apiProduct->setTotalAmountRetainedItem('');
 
                 // Product references...
-                $apiProduct->setReferenceProductAdditional('');
-                $apiProduct->setReferenceProductSupplier('');
+                //no lo trae la API $apiProduct->setReferenceProductAdditional('');
+                //no lo trae la API $apiProduct->setReferenceProductSupplier('');
 
                 $apiInvoiceEmitted->addProducts($apiProduct);
             }
+
 
             // Custom datas
             $customData = new ApiCustomData('');
@@ -208,6 +250,7 @@ xml;
             $apiInvoiceEmitted->addCustomData($customData);
 
             // END...
+            dd($apiInvoiceEmitted);
 
 
             $this->api->post($apiInvoiceEmitted, 'invoice_emitteds', '');

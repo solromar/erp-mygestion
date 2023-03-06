@@ -11,7 +11,7 @@ abstract class AbstractApi
 {
     protected string $id;
 
-    protected $referenceCurrency = 'EUR';
+    protected $referenceCurrency;
 
     protected $monetaryAmountTerm;
     
@@ -80,12 +80,12 @@ abstract class AbstractApi
 
     public function getReferenceCurrency(): ?string
     {
-        return strtoupper($this->referenceCurrency) ?? 'EUR';
+        return $this->referenceCurrency;
     }
 
     public function setReferenceCurrency(?string $referenceCurrency): self
     {
-        $this->referenceCurrency = strtoupper($referenceCurrency) ?? 'EUR';
+        $this->referenceCurrency = $referenceCurrency;
 
         return $this;
     }
